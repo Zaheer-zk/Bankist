@@ -74,3 +74,31 @@ message.style.marginLeft = '67%';
 
 // to get the style what style is added to the element
 console.log(getComputedStyle(message).backgroundColor);
+
+//To access the variables in CSS
+document.documentElement.style.setProperty('--color-primary', 'orangered');
+
+//-Styling Attributes ----------------------------------------------------------------
+const logo = document.querySelector('.nav__logo');
+console.log(logo.src);
+console.log(logo.alt);
+// console.log(logo.designer); // we can only use the standard attributes
+
+logo.alt = 'Logo Alt Text'
+
+//for non-standard attributes
+console.log(logo.getAttribute('designer'));
+logo.setAttribute('company', 'Bankist');
+console.log(logo.getAttribute('company'));
+
+//-Data Attributes
+console.log(logo.dataset.versionNumber);
+
+//-Classes ----------------------------------------------------------------
+logo.className.add('log')
+logo.className.remove('log')
+logo.className.toggle('log')
+logo.className.contains('log')
+
+//-Dont Use
+logo.className = 'log' // It will overwrite all the classes
