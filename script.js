@@ -76,7 +76,7 @@ message.style.marginLeft = '67%';
 console.log(getComputedStyle(message).backgroundColor);
 
 //To access the variables in CSS
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
 
 //-Styling Attributes ----------------------------------------------------------------
 const logo = document.querySelector('.nav__logo');
@@ -91,14 +91,40 @@ console.log(logo.getAttribute('designer'));
 logo.setAttribute('company', 'Bankist');
 console.log(logo.getAttribute('company'));
 
-//-Data Attributes
+//-Data Attributes data-version-number
 console.log(logo.dataset.versionNumber);
 
 //-Classes ----------------------------------------------------------------
-logo.className.add('log')
-logo.className.remove('log')
-logo.className.toggle('log')
-logo.className.contains('log')
+// logo.className.add('log')
+// logo.className.remove('log')
+// logo.className.toggle('log')
+// logo.className.contains('log')
 
-//-Dont Use
+//-Don't Use
 logo.className = 'log' // It will overwrite all the classes
+
+
+//Scrolling attributes----------------------------------------------------------------
+const btnScrollTo = document.querySelector('.btn--scroll-to')
+const section1 = document.querySelector('#section--1')
+
+btnScrollTo.addEventListener('click', (e) => {
+  const scrollCoord = section1.getBoundingClientRect();
+  console.log('scrollCoord', scrollCoord)
+
+  console.log(e.target.getBoundingClientRect)
+
+  console.log('Current scroll (X/Y)', window.pageXOffset, window.pageYOffset);
+
+  console.log('height / width viewport', document.documentElement.clientHeight, document.documentElement.clientWidth)
+
+  //M1
+  // window.scrollTo({
+  //   left: scrollCoord.left + window.pageXOffset,
+  //   top: scrollCoord.top + window.pageYOffset,
+  //   behavior: "smooth"
+  // })
+
+  //M2
+  section1.scrollIntoView({behavior: 'smooth'})
+})
