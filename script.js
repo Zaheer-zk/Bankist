@@ -128,3 +128,88 @@ btnScrollTo.addEventListener('click', (e) => {
   //M2
   section1.scrollIntoView({behavior: 'smooth'})
 })
+
+// Event handlers
+const h1 = document.querySelector('h1')
+
+const alertH1 = (e) => {
+  alert('mouseenter', e)
+}
+
+h1.addEventListener('mouseenter', alertH1)
+
+// on is also attribute which is same as above listener
+// h1.onmouseenter = (e) => {
+//   console.log('mouseenter', e)
+// }
+
+// We can remove an addEventListener
+// We can also use event in HTML
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000)
+
+// Event Propagation : Bubbling and Capturing 
+const randomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+const randomColor = () => {
+  return `rgb(${randomInt(0,255)}, ${randomInt(0,255)}, ${randomInt(0,255)})`
+}
+
+// console.log(randomColor())
+// All the parent of this element will get fired using this same event listener because of event bubbling nav__link -> nav__links -> nav
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK',e.currentTarget)
+
+//   //STOP Propagation
+//   //NOTE : NOT Suggested to use may occur issue
+//   e.stopPropagation()
+// })
+
+// // Bubbling nav__links -> nav
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER',e.currentTarget)
+
+// })
+
+// // Bubbling nav
+// document.querySelector('.nav').addEventListener('click', function (e)  {
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV',e.currentTarget)
+// })
+
+// //Event Capturing nav -> nav__links -> nav__link
+// document.querySelector('.nav').addEventListener('click', function (e)  {
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV',e.currentTarget)
+// },
+// true)
+
+//////////////////////////////////////////////////////////////
+// Event Delegation ->
+
+// Using Page navigation
+document.querySelectorAll('.nav__link').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault()
+
+    const id = this.getAttribute('href')
+    document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+  })
+})
+
+// Using Bubbling
+// 1. add event listener to common parent
+// 2. Determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault()
+
+  if(e.target.classList.contains('nav__link')) {
+    const id  = e.target.getAttribute('href')
+    document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+  }
+})
